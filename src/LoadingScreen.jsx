@@ -1,39 +1,6 @@
 import { useEffect } from "react";
 
-export default function LoadingScreen({ releases, setReleases, setLoading }) {
-
-    /* let artists = ['Sufjan Stevens', 'Radiohead']; */
-
-    /* let mbids = [
-        "d67d3f47-f7b5-45fe-9567-a237746a6105",
-        "76df3287-6cda-33eb-8e9a-044b5e15ffdd",
-        "e9b0f69e-ee3d-36ed-8c12-f8ee65f87e45",
-        "d40165ac-a2c9-4ab7-9844-b643106a5a9b",
-        "8db9754a-154f-449a-9552-22c76ddc0264",
-        "76df3287-6cda-33eb-8e9a-044b5e15ffdd",
-        "d67d3f47-f7b5-45fe-9567-a237746a6105",
-        "e9b0f69e-ee3d-36ed-8c12-f8ee65f87e45",
-        "d40165ac-a2c9-4ab7-9844-b643106a5a9b",
-        "8db9754a-154f-449a-9552-22c76ddc0264",
-        "76df3287-6cda-33eb-8e9a-044b5e15ffdd",
-        "d67d3f47-f7b5-45fe-9567-a237746a6105",
-        "e9b0f69e-ee3d-36ed-8c12-f8ee65f87e45",
-        "d40165ac-a2c9-4ab7-9844-b643106a5a9b",
-        "8db9754a-154f-449a-9552-22c76ddc0264",
-        "d67d3f47-f7b5-45fe-9567-a237746a6105",
-        "e9b0f69e-ee3d-36ed-8c12-f8ee65f87e45",
-        "d40165ac-a2c9-4ab7-9844-b643106a5a9b",
-        "8db9754a-154f-449a-9552-22c76ddc0264",
-        "d67d3f47-f7b5-45fe-9567-a237746a6105",
-        "e9b0f69e-ee3d-36ed-8c12-f8ee65f87e45",
-        "d40165ac-a2c9-4ab7-9844-b643106a5a9b",
-        "8db9754a-154f-449a-9552-22c76ddc0264",
-        "d67d3f47-f7b5-45fe-9567-a237746a6105",
-        "e9b0f69e-ee3d-36ed-8c12-f8ee65f87e45",
-        "d40165ac-a2c9-4ab7-9844-b643106a5a9b",
-        "8db9754a-154f-449a-9552-22c76ddc0264"] */
-
-
+export default function LoadingScreen({ setReleases, setLoading }) {
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
