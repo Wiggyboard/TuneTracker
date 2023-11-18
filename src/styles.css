@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+	--EerieBlack: #121416;
+	--LightEerie: #1c2024;
+	--Gainsboro: #DFDFDF;
+	--Fulvous: #e88821;
+	--MajorelleBlue: #5e4ae3;
+	--LightMajorelle: #7869d6;
+	--DarkMajorelle: #362a85;
+	--Blond: #FBF2C0;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+p {
+	margin: 0;
+	font-family: 'Urbanist', sans-serif;
+	font-size: 1.25rem;
+	color: var(--Gainsboro);
+	line-height: 3rem;
+}
+
+h1 {
+	margin: 0;
+	line-height: 0;
+	color: var(--Gainsboro);
+}
+
+body {
+	overflow-x: hidden;
+	margin: 0;
+	background: var(--EerieBlack);
+}
+
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	min-height: 7.5rem;
+	width: 100%;
+	background: var(--LightEerie);
+	box-shadow: rgba(0, 0, 0, 0.664) 0px 0px 10px 0px;
+	font-family: 'Urbanist', sans-serif;
+	font-size: 2rem;
+	color: var(--Gainsboro);
+	cursor: default;
+}
+
+main {
+	display: flex;
+	justify-content: center;
+	width: 100dvw;
+}
+
+
+
+
+
+
+
+
+
+
+
+#loading-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 7rem;
+	max-width: 50rem;
+	background: var(--LightEerie);
+	border-radius: 0.5rem;
+	box-shadow: rgba(0, 0, 0, 0.678) 0px 0px 50px 0px;
+}
+
+#loading-container>h2 {
+	margin-bottom: 2rem;
+	color: var(--Gainsboro);
+	font-family: 'Urbanist', sans-serif;
+	font-size: 2rem;
+	text-align: center;
+}
+
+#loading-container>p {
+	font-size: 1.5rem;
+	text-align: center;
+	margin-bottom: 5rem;
+}
+
+#loading-icon {
+	height: 10rem;
+	animation: spin 5s infinite linear;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+.release-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(25rem, 0fr));
+	gap: 7.5rem;
+	justify-items: center;
+	margin-top: 15rem;
+	min-height: 100%;
+	min-width: fit-content;
+	max-width: 80dvw;
+}
+
+.release-card {
+	align-items: center;
+	flex-direction: column;
+	height: fit-content;
+	width: 25rem;
+	background: var(--LightEerie);
+	border-radius: 0.5rem;
+	box-shadow: rgba(0, 0, 0, 0.678) 0px 0px 50px 0px;
+}
+
+.release-card:last-of-type {
+	margin-bottom: 15rem;
+}
+
+.release-cover {
+	width: 100%;
+	aspect-ratio: 1/1;
+	border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.release-card>p {
+	text-align: center;
+}
+
+.release-card>p:first-of-type {
+	margin-top: 1rem;
+}
+
+.release-card>p:last-of-type {
+	margin-bottom: 1rem;
+}
