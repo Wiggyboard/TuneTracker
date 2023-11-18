@@ -6,7 +6,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
         const signal = abortController.signal;
 
         const fetchSpotifyArtists = async () => {
-            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'The Mountain Goats', 'Porcupine Tree'];
+            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'The Mountain Goats', 'Iron and'];
         }
 
         const fetchArtistID = async (artist) => {
@@ -36,7 +36,18 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             const mostRecentReleaseGroupID = sortedReleaseGroups[0].id;
             const title = sortedReleaseGroups[0]['title'];
             const releaseDate = sortedReleaseGroups[0]['first-release-date'];
-            return { releaseGroupID: mostRecentReleaseGroupID, title: title, releaseDate: releaseDate };
+
+            // Formats release date
+            const timeFrames = releaseDate.split('-');
+            const year = parseInt(timeFrames[0]);
+            const month = parseInt(timeFrames[1]);
+            const day = parseInt(timeFrames[2]);
+            const date = new Date(year, month -1, day);
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const monthName = monthNames[date.getMonth()];
+            const formattedDate = monthName + ' ' + day + ', ' + year;
+
+            return { releaseGroupID: mostRecentReleaseGroupID, title: title, releaseDate: formattedDate };
         };
 
         const fetchReleaseID = async (releaseGroupID) => {
