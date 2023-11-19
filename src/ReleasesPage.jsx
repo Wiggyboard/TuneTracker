@@ -9,7 +9,6 @@ export default function ReleasesPage() {
         <main>
             {loading ? (
                 <LoadingScreen
-                    releases={releases}
                     setReleases={setReleases}
                     setLoading={setLoading}
                 />

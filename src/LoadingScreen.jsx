@@ -6,10 +6,11 @@ export default function LoadingScreen({ setReleases, setLoading }) {
         const signal = abortController.signal;
 
         const fetchSpotifyArtists = async () => {
-            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'The Mountain Goats', 'Iron and'];
+            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'The Mountain Goats', 'Iron and Wine'];
         }
 
         const fetchArtistID = async (artist) => {
+            /* sleep(3000); */
             const response = await fetch(`https://musicbrainz.org/ws/2/artist?query=artist:${artist}&fmt=json`, {
                 signal,
                 headers: {
@@ -29,7 +30,6 @@ export default function LoadingScreen({ setReleases, setLoading }) {
                 }
             });
             const data = await response.json();
-            console.log(data);
             const sortedReleaseGroups = data['release-groups'].sort((a, b) => {
                 return new Date(b['first-release-date']) - new Date(a['first-release-date']);
             });
@@ -42,7 +42,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             const year = parseInt(timeFrames[0]);
             const month = parseInt(timeFrames[1]);
             const day = parseInt(timeFrames[2]);
-            const date = new Date(year, month -1, day);
+            const date = new Date(year, month - 1, day);
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             const monthName = monthNames[date.getMonth()];
             const formattedDate = monthName + ' ' + day + ', ' + year;
@@ -59,7 +59,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             });
             const data = await response.json();
 
-            // Checks for cover art
+            // Checks for cover art by looping through releaseIDs
             let releaseWithCover = null;
             for (let i = 0; i < data.releases.length; i++) {
                 const response = await fetch(`http://coverartarchive.org/release/${data.releases[i].id.toString()}/front-250`, { signal });
@@ -129,10 +129,15 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             // Calls function to fetch cover from CoverArtArchive and updates releases with cover values
             const covers = await Promise.all(releaseIDs.map(releaseID => fetchCover(releaseID.releaseID)));
             setReleases(prevReleases => {
-                return prevReleases.map((release, index) => ({
+                const updatedReleases = prevReleases.map((release, index) => ({
                     ...release,
                     ...covers[index],
                 }));
+
+                // Sorts releases by date
+                const sortedReleases = [...updatedReleases];
+                sortedReleases.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+                return sortedReleases;
             });
 
             setLoading(false);
@@ -144,10 +149,6 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             abortController.abort('Component unmounted');
         }
     }, []);
-
-
-
-
 
 
 
