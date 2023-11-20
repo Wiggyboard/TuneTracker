@@ -129,13 +129,15 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             // Calls function to fetch cover from CoverArtArchive and updates releases with cover values
             const covers = await Promise.all(releaseIDs.map(releaseID => fetchCover(releaseID.releaseID)));
             setReleases(prevReleases => {
-                const updatedReleases = prevReleases.map((release, index) => ({
+                return prevReleases.map((release, index) => ({
                     ...release,
                     ...covers[index],
                 }));
+            });
 
-                // Sorts releases by date
-                const sortedReleases = [...updatedReleases];
+            // Sort releases by date
+            setReleases(prevReleases => {
+                const sortedReleases = [...prevReleases];
                 sortedReleases.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
                 return sortedReleases;
             });
