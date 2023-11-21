@@ -6,7 +6,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
         const signal = abortController.signal;
 
         const fetchSpotifyArtists = async () => {
-            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'The Mountain Goats', 'Iron and Wine'];
+            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'HEALTH', 'Iron and Wine'];
         }
 
         const fetchArtistID = async (artist) => {
