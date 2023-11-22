@@ -6,7 +6,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
         const signal = abortController.signal;
 
         const fetchSpotifyArtists = async () => {
-            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'HEALTH', 'Iron & Wine', 'Peter Gabriel', 'The Smile'];
+            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'HEALTH', 'Iron and Wine', 'Peter Gabriel', 'The Smile'];
         }
 
         const fetchArtistID = async (artist) => {
@@ -17,7 +17,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
                 }
             });
             const data = await response.json();
-            let artistID;
+            let artistID = data.artists[0].id;;
             for (let i = 0; i < data.artists.length; i++) {
                 if (data.artists[i].name.toLowerCase() === artist.toLowerCase()) {
                     artistID = data.artists[i].id;
