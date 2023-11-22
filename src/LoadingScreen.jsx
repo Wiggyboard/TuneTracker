@@ -6,11 +6,10 @@ export default function LoadingScreen({ setReleases, setLoading }) {
         const signal = abortController.signal;
 
         const fetchSpotifyArtists = async () => {
-            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'HEALTH', 'Iron and Wine'];
+            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'HEALTH', 'Iron and Wine', 'Peter Gabriel', 'The Smile'];
         }
 
         const fetchArtistID = async (artist) => {
-            /* sleep(3000); */
             const response = await fetch(`https://musicbrainz.org/ws/2/artist?query=artist:${artist}&fmt=json`, {
                 signal,
                 headers: {
@@ -18,6 +17,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
                 }
             });
             const data = await response.json();
+            console.log(data);
             const artistID = data.artists[0].id
             return { artistID };
         };
@@ -93,6 +93,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
 
 
         const updateReleases = async () => {
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
             // Calls function to fetch artists from Spotify and updates releases with artist values.
             const artists = await fetchSpotifyArtists();
@@ -100,7 +101,12 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             setReleases(updatedReleases);
 
             // Calls function to fetch artistIDs from MusicBrainz and updates releases with artistID values.
-            const artistIDs = await Promise.all(artists.map(fetchArtistID));
+            const artistIDs = [];
+            for (const artist of artists) {
+                artistIDs.push(await fetchArtistID(artist));
+                await delay(1000);
+            }
+
             setReleases(prevReleases => {
                 return prevReleases.map((release, index) => ({
                     ...release,
@@ -109,7 +115,12 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             });
 
             // Calls function to fetch releaseGroupIDs, titles, and releaseDates from MusicBrainz and updates releases with those values.
-            const releaseGroupData = await Promise.all(artistIDs.map(artistID => fetchReleaseGroupData(artistID.artistID)));
+            const releaseGroupData = [];
+            for (const artistID of artistIDs) {
+                releaseGroupData.push(await fetchReleaseGroupData(artistID.artistID));
+                await delay(1000);
+            }
+
             setReleases(prevReleases => {
                 return prevReleases.map((release, index) => ({
                     ...release,
@@ -118,7 +129,12 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             });
 
             // Calls function to fetch releaseIDs that have associated cover art from MusicBrainz and updates releases with MBID values.
-            const releaseIDs = await Promise.all(releaseGroupData.map(releaseGroupID => fetchReleaseID(releaseGroupID.releaseGroupID)));
+            const releaseIDs = [];
+            for (const releaseGroupID of releaseGroupData) {
+                releaseIDs.push(await fetchReleaseID(releaseGroupID.releaseGroupID));
+                await delay(1000);
+            }
+
             setReleases(prevReleases => {
                 return prevReleases.map((release, index) => ({
                     ...release,
