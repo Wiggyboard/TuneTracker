@@ -6,7 +6,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
         const signal = abortController.signal;
 
         const fetchSpotifyArtists = async () => {
-            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'HEALTH', 'Iron and Wine', 'Peter Gabriel', 'The Smile'];
+            return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'HEALTH', 'Iron & Wine', 'Peter Gabriel', 'The Smile'];
         }
 
         const fetchArtistID = async (artist) => {
@@ -17,9 +17,14 @@ export default function LoadingScreen({ setReleases, setLoading }) {
                 }
             });
             const data = await response.json();
-            console.log(data);
-            const artistID = data.artists[0].id
-            return { artistID };
+            let artistID;
+            for (let i = 0; i < data.artists.length; i++) {
+                if (data.artists[i].name.toLowerCase() === artist.toLowerCase()) {
+                    artistID = data.artists[i].id;
+                    break;
+                }
+            }
+            return artistID;
         };
 
         const fetchReleaseGroupData = async (artistID) => {
@@ -117,7 +122,7 @@ export default function LoadingScreen({ setReleases, setLoading }) {
             // Calls function to fetch releaseGroupIDs, titles, and releaseDates from MusicBrainz and updates releases with those values.
             const releaseGroupData = [];
             for (const artistID of artistIDs) {
-                releaseGroupData.push(await fetchReleaseGroupData(artistID.artistID));
+                releaseGroupData.push(await fetchReleaseGroupData(artistID));
                 await delay(1000);
             }
 
