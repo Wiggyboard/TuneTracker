@@ -69,6 +69,116 @@ main {
 
 
 
+
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	max-width: 50rem;
+	margin: auto;
+	padding: 7rem 5rem;
+	background: var(--LightEerie);
+	border-radius: 0.5rem;
+	box-shadow: rgba(0, 0, 0, 0.678) 0px 0px 50px 0px;
+}
+
+form>h2 {
+	margin: 0 0 1.5rem 0;
+	font-family: 'Urbanist', sans-serif;
+	font-size: 2rem;
+	color: var(--Gainsboro);
+}
+
+form>p {
+	margin: 0 0 3rem 0;
+	font-family: 'Urbanist', sans-serif;
+	font-size: 1.5rem;
+	color: #dfdfdfcc;
+	text-align: center;
+}
+
+form>p>a {
+	color: var(--LightMajorelle);
+}
+
+form>a {
+	width: 100%;
+}
+
+label {
+	align-self: flex-start;
+	font-family: 'Urbanist', sans-serif;
+	font-size: 1.7rem;
+	font-weight: 500;
+	color: var(--Gainsboro);
+}
+
+input {
+	height: 5rem;
+	width: 100%;
+	padding: 1.5rem 1.5rem;
+	margin: 1rem 0 3rem 0;
+	background: #DFDFDF;
+	border: none;
+	border-radius: 0.5rem;
+	box-sizing: border-box;
+	font-family: 'Urbanist', sans-serif;
+	font-size: 1.7rem;
+}
+
+input[type="password"] {
+	font-family: Arial;
+}
+
+.error-text {
+	display: none;
+	margin: 0;
+	color: red;
+	line-height: 0;
+}
+
+.form-submit {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	height: 5rem;
+	width: 100%;
+	margin: 3rem 0 0 0;
+	background: var(--MajorelleBlue);
+	border: none;
+	border-radius: 0.5rem;
+	box-shadow: #5e4ae3 0px 10px 13px -7px;
+	font-family: 'Urbanist', sans-serif;
+	font-size: 1.7rem;
+	font-weight: 500;
+	color: var(--Gainsboro);
+	transition: all 0.1s ease;
+	cursor: pointer;
+}
+
+.form-submit:hover {
+	background: var(--LightMajorelle);
+	box-shadow: var(--LightMajorelle) 0px 10px 13px -7px;
+}
+
+.form-submit:active {
+	transform: scale(0.98, 0.98);
+	box-shadow: #5e4ae3 0px 7px 13px -7px;
+}
+
+
+
+
+
+
+
+
+
+
+
 #releases-view-toggle {
 	display: grid;
 	grid-template-columns: 50% 50%;
@@ -116,6 +226,148 @@ main {
 .view-selected {
 	background: var(--MajorelleBlue);
 	pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+
+#artist-source-selection {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	/* top: 0; */
+	transform: translateY(50%);
+	padding: 7rem;
+	max-width: 50rem;
+	background: var(--LightEerie);
+	border-radius: 0.5rem;
+	box-shadow: rgba(0, 0, 0, 0.678) 0px 0px 50px 0px;
+}
+
+#artist-source-selection>h2 {
+	margin: 0 0 1.5rem 0;
+	font-family: 'Urbanist', sans-serif;
+	font-size: 2rem;
+	color: var(--Gainsboro);
+	text-align: center;
+}
+
+#connect-card-container {
+	display: flex;
+}
+
+.connect-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 18rem;
+	width: 15rem;
+	margin: 5rem 3rem 0;
+	padding: 2rem;
+	border-radius: 0.5rem;
+	color: var(--Gainsboro);
+	font-size: 1.5rem;
+	transition-duration: 0.2s;
+	cursor: pointer;
+}
+
+.connect-card:hover {
+	transform: translateY(-2%);
+	box-shadow: rgba(0, 0, 0, 0.678) 0px 0px 50px 0px;
+}
+
+.connect-icon {
+	height: 15rem;
+}
+
+#spotify-card {
+	background: #1DB954;
+}
+
+.card-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 18rem;
+	width: 15rem;
+	margin: 5rem 3rem 0;
+	padding: 2rem;
+	perspective: 100rem;
+	cursor: pointer;
+	transition: 0.1s linear;
+}
+
+.card-flip {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	height: 18rem;
+	width: 15rem;
+	margin: 0 3rem 0;
+	padding: 2rem;
+	transition: transform 0.5s;
+	transform-style: preserve-3d;
+}
+
+.card-flipped {
+	transform: rotateY(180deg);
+	cursor: default;
+}
+
+#lastfm-card-front,
+.card-back {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	height: 18rem;
+	width: 15rem;
+	margin: 0 3rem 0;
+	padding: 2rem;
+	border-radius: 0.5rem;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+}
+
+#lastfm-card-front {
+	background: #c3000d;
+}
+
+.card-back {
+	background: #c3000d;
+	transform: rotateY(180deg);
+	font-size: 1.5rem;
+}
+
+.card-back>input {
+	width: 100%;
+	padding: 1rem;
+	margin: 1rem 0 3rem 0;
+	background: #DFDFDF;
+	border: none;
+	border-radius: 0.5rem;
+	box-sizing: border-box;
+	font-family: 'Urbanist', sans-serif;
+	font-size: 1.7rem;
+}
+
+.card-back>.form-submit {
+	height: 3.7rem;
+	margin: 0 0 0 0;
+	box-shadow: none;
 }
 
 
