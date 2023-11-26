@@ -14,11 +14,13 @@ export default function ReleasesPage() {
             {artistSource === '' ? (
                 <ArtistSourceSelection
                     setArtistSource={setArtistSource}
+                    setReleases={setReleases}
                 />
             ) : (
                 <>
                     {loading ? (
                         <LoadingScreen
+                            releases={releases}
                             setReleases={setReleases}
                             setLoading={setLoading}
                         />

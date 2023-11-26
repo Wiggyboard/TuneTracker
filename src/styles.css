@@ -258,6 +258,7 @@ input[type="password"] {
 	font-size: 2rem;
 	color: var(--Gainsboro);
 	text-align: center;
+	line-height: 3.5rem;
 }
 
 #connect-card-container {

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 
-export default function LoadingScreen({ setReleases, setLoading }) {
+export default function LoadingScreen({ releases, setReleases, setLoading }) {
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
 
-        const fetchSpotifyArtists = async () => {
+        /* const fetchSpotifyArtists = async () => {
             return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'HEALTH', 'Iron and Wine', 'Peter Gabriel', 'The Smile'];
-        }
+        } */
 
         const fetchArtistID = async (artist) => {
             const response = await fetch(`https://musicbrainz.org/ws/2/artist?query=artist:${artist}&fmt=json`, {
@@ -100,12 +100,13 @@ export default function LoadingScreen({ setReleases, setLoading }) {
         const updateReleases = async () => {
             const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-            // Calls function to fetch artists from Spotify and updates releases with artist values.
+            /* // Calls function to fetch artists from Spotify and updates releases with artist values.
             const artists = await fetchSpotifyArtists();
             const updatedReleases = artists.map(artist => ({ artist }));
-            setReleases(updatedReleases);
+            setReleases(updatedReleases); */
 
             // Calls function to fetch artistIDs from MusicBrainz and updates releases with artistID values.
+            const artists = release.artist
             const artistIDs = [];
             for (const artist of artists) {
                 artistIDs.push(await fetchArtistID(artist));
