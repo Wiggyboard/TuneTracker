@@ -10,7 +10,7 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
             const lastfmUsername = userData.lastfmUsername;
             const lastfmAPIKey = import.meta.env.VITE_REACT_APP_LASTFM_API_KEY;
 
-            const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastfmUsername}&api_key=${lastfmAPIKey}&format=json&limit=2`);
+            const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastfmUsername}&api_key=${lastfmAPIKey}&format=json&limit=5`);
             const data = await response.json();
             const lastfmArtists = data.topartists.artist.map(artist => {
                 return artist.name;
@@ -37,7 +37,6 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
         }
 
         const fetchReleaseGroupData = async (artistID) => {
-            console.log(artistID);
             const response = await fetch(`https://musicbrainz.org/ws/2/release-group?artist=${artistID}&limit=100&fmt=json`, {
                 signal,
                 headers: {
