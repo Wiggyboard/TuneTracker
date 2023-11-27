@@ -4,6 +4,7 @@ import ReleasesViewToggle from "./ReleasesViewToggle";
 import LoadingScreen from "./LoadingScreen";
 
 export default function ReleasesPage() {
+    const [userData, setUserData] = useState({});
     const [releases, setReleases] = useState([]);
     const [artistSource, setArtistSource] = useState('')
     const [loading, setLoading] = useState(false);
@@ -14,12 +15,15 @@ export default function ReleasesPage() {
             {artistSource === '' ? (
                 <ArtistSourceSelection
                     setArtistSource={setArtistSource}
-                    setReleases={setReleases}
+                    setUserData={setUserData}
+                    setLoading={setLoading}
                 />
             ) : (
                 <>
                     {loading ? (
                         <LoadingScreen
+                            userData={userData}
+                            artistSource={artistSource}
                             releases={releases}
                             setReleases={setReleases}
                             setLoading={setLoading}

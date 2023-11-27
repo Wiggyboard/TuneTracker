@@ -1,29 +1,25 @@
 import { useState } from 'react';
 
-export default function ArtistSourceSelection({ setArtistSource, setReleases }) {
+export default function ArtistSourceSelection({ setUserData, setArtistSource, setLoading }) {
     const [isFlipped, setFlipped] = useState(false);
-
-    // Fetches artists from Last.fm
-    const connectLastfm = () => {
-        const lastfmUsername = document.getElementById("lastfm-username").value;
-        const lastfmAPIKey = import.meta.env.VITE_REACT_APP_LASTFM_API_KEY;
-
-        fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastfmUsername}&api_key=${lastfmAPIKey}&format=json&limit=20`)
-            .then(response => response.json())
-            .then(data => {
-                const lastfmArtists = data.topartists.artist.map(artist => {
-                    return artist.name;
-                });
-                const updatedReleases = lastfmArtists.map(artist => ({ artist }));
-                setReleases(updatedReleases);
-            });
-    }
 
     // Flips Last.fm connection card
     const flipLastFMCard = () => {
         setFlipped(!isFlipped);
-    };
+    }
 
+    // Sets artistSource as Spotify
+    const setSpotify = () => {
+        setArtistSource('spotify');
+    }
+
+    // Sets artistSource as Last.fm
+    const setLastfm = () => {
+        const lastfmUsername = document.getElementById("lastfm-username").value;
+        setUserData({ lastfmUsername: lastfmUsername });
+        setArtistSource('lastfm');
+        setLoading(true);
+    }
 
     return (
         <section id='artist-source-selection'>
@@ -31,7 +27,7 @@ export default function ArtistSourceSelection({ setArtistSource, setReleases }) 
             <h2>To get started, link TuneTracker to your Spotify or Last.fm account</h2>
 
             <div id='connect-card-container'>
-                <div className='connect-card' id='spotify-card' onClick='connectSpotify()'>
+                <div className='connect-card' id='spotify-card' onClick={setSpotify}>
                     <img className='connect-icon' src='static/spotify-icon.svg' />
                     <p>Connect to Spotify</p>
                 </div>
@@ -45,7 +41,7 @@ export default function ArtistSourceSelection({ setArtistSource, setReleases }) 
                         <div className='card-back'>
                             <p>Last.fm username:</p>
                             <input type='text' id='lastfm-username' />
-                            <div className='form-submit' onClick={connectLastfm}>Submit</div>
+                            <div className='form-submit' onClick={setLastfm}>Submit</div>
                         </div>
                     </div>
                 </div>

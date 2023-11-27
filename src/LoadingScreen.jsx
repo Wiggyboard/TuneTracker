@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function LoadingScreen({ releases, setReleases, setLoading }) {
+export default function LoadingScreen({ userData, artistSource, setReleases, setLoading }) {
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
@@ -8,6 +8,20 @@ export default function LoadingScreen({ releases, setReleases, setLoading }) {
         /* const fetchSpotifyArtists = async () => {
             return ['Sufjan Stevens', 'Geese', 'Aesop Rock', 'HEALTH', 'Iron and Wine', 'Peter Gabriel', 'The Smile'];
         } */
+
+        // Fetches artists from Last.fm
+        const fetchLastfmArtists = async () => {
+            const lastfmUsername = userData.lastfmUsername;
+            const lastfmAPIKey = import.meta.env.VITE_REACT_APP_LASTFM_API_KEY;
+
+            const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastfmUsername}&api_key=${lastfmAPIKey}&format=json&limit=20`);
+            const data = await response.json();
+            const lastfmArtists = data.topartists.artist.map(artist => {
+				return artist.name;
+			});
+            return lastfmArtists;
+        }
+
 
         const fetchArtistID = async (artist) => {
             const response = await fetch(`https://musicbrainz.org/ws/2/artist?query=artist:${artist}&fmt=json`, {
@@ -25,7 +39,7 @@ export default function LoadingScreen({ releases, setReleases, setLoading }) {
                 }
             }
             return artistID;
-        };
+        }
 
         const fetchReleaseGroupData = async (artistID) => {
             const response = await fetch(`https://musicbrainz.org/ws/2/release-group?artist=${artistID}&limit=100&fmt=json`, {
@@ -100,13 +114,18 @@ export default function LoadingScreen({ releases, setReleases, setLoading }) {
         const updateReleases = async () => {
             const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-            /* // Calls function to fetch artists from Spotify and updates releases with artist values.
-            const artists = await fetchSpotifyArtists();
+            // Calls function to fetch artists from Spotify and updates releases with artist values.
+            let artists = [];
+            if (artistSource === 'spotify') {
+                artists = await fetchSpotifyArtists();
+            }
+            else if (artistSource === 'lastfm') {
+                artists = await fetchLastfmArtists();
+            }
             const updatedReleases = artists.map(artist => ({ artist }));
-            setReleases(updatedReleases); */
+            setReleases(updatedReleases);
 
             // Calls function to fetch artistIDs from MusicBrainz and updates releases with artistID values.
-            const artists = release.artist
             const artistIDs = [];
             for (const artist of artists) {
                 artistIDs.push(await fetchArtistID(artist));
