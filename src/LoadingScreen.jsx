@@ -1,16 +1,35 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export default function LoadingScreen({ userData, artistSource, setReleases, setLoading }) {
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
 
+        // Fetches artists from Spotify
+        const fetchSpotifyArtists = async () => {
+            const spotifyAccessToken = userData.spotifyAccessToken;
+
+            const response = await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10', {
+                signal,
+                headers: {
+                    'Authorization': 'Bearer ' + spotifyAccessToken
+                }
+            });
+            const data = await response.json();
+            console.log(data);
+            const spotifyArtists = data.items.map(artist => {
+                return artist.name;
+            });
+            console.log(spotifyArtists);
+            return spotifyArtists;
+        }
+
         // Fetches artists from Last.fm
         const fetchLastfmArtists = async () => {
             const lastfmUsername = userData.lastfmUsername;
             const lastfmAPIKey = import.meta.env.VITE_REACT_APP_LASTFM_API_KEY;
 
-            const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastfmUsername}&api_key=${lastfmAPIKey}&format=json&limit=5`);
+            const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastfmUsername}&api_key=${lastfmAPIKey}&format=json&limit=10`);
             const data = await response.json();
             const lastfmArtists = data.topartists.artist.map(artist => {
                 return artist.name;

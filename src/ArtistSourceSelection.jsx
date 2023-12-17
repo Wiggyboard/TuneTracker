@@ -1,16 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function ArtistSourceSelection({ setUserData, setArtistSource, setLoading }) {
     const [isFlipped, setFlipped] = useState(false);
+    const params = new URLSearchParams(window.location.hash.slice(1));
+    const spotifyAccessToken = params.get("access_token");
 
-    // Flips Last.fm connection card
-    const flipLastFMCard = () => {
-        setFlipped(!isFlipped);
+    // Authorizes Spotifty account
+    const authorizeSpotify = () => {
+        const clientID = import.meta.env.VITE_REACT_APP_SPOTIFY_CLIENT_ID;
+        const redirectURI = 'http://127.0.0.1:5173';
+        const scope = 'user-top-read';
+        const authURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&redirect_uri=${redirectURI}&scope=${scope}`;
+
+        // Redirects to Spotify authorization page
+        window.location.href = authURL;
     }
 
     // Sets artistSource as Spotify
     const setSpotify = () => {
+        setUserData({ spotifyAccessToken: spotifyAccessToken });
         setArtistSource('spotify');
+        setLoading(true);
+    }
+
+    // Checks on page load if a Spotify access token exists
+    useEffect(() => {
+        if (spotifyAccessToken) {
+            setSpotify();
+        }
+    }, []);
+
+    // Flips Last.fm connection card
+    const flipLastFMCard = () => {
+        setFlipped(!isFlipped);
     }
 
     // Sets artistSource as Last.fm
@@ -27,7 +49,7 @@ export default function ArtistSourceSelection({ setUserData, setArtistSource, se
             <h2>To get started, link TuneTracker to your Spotify or Last.fm account</h2>
 
             <div id='connect-card-container'>
-                <div className='connect-card' id='spotify-card' onClick={setSpotify}>
+                <div className='connect-card' id='spotify-card' onClick={authorizeSpotify}>
                     <img className='connect-icon' src='static/spotify-icon.svg' />
                     <p>Connect to Spotify</p>
                 </div>
