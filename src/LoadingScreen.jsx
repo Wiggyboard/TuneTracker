@@ -16,11 +16,9 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
                 }
             });
             const data = await response.json();
-            console.log(data);
             const spotifyArtists = data.items.map(artist => {
                 return artist.name;
             });
-            console.log(spotifyArtists);
             return spotifyArtists;
         }
 
