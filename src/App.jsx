@@ -5,14 +5,22 @@ import ReleasesPage from './ReleasesPage';
 import './styles.css';
 
 export default function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [isLoggedIn, setIsLoggedIn] = useState(() => {
+		const storedState = localStorage.getItem('isLoggedIn');
+		return storedState ? JSON.parse(storedState) : false;
+	});
 
 	return (
 		<div className='App'>
-			<Header />
+			<Header
+				isLoggedIn={isLoggedIn}
+				setIsLoggedIn={setIsLoggedIn}
+			/>
 			{!isLoggedIn ?
-				<Home /> :
-				<ReleasesPage />}
+				<Home />
+				:
+				<ReleasesPage />
+			}
 		</div>
 	)
 }

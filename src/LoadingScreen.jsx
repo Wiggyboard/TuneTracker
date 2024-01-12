@@ -9,7 +9,7 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
         const fetchSpotifyArtists = async () => {
             const spotifyAccessToken = userData.spotifyAccessToken;
 
-            const response = await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10', {
+            const response = await fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=20', {
                 signal,
                 headers: {
                     'Authorization': 'Bearer ' + spotifyAccessToken
@@ -27,7 +27,7 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
             const lastfmUsername = userData.lastfmUsername;
             const lastfmAPIKey = import.meta.env.VITE_REACT_APP_LASTFM_API_KEY;
 
-            const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastfmUsername}&api_key=${lastfmAPIKey}&format=json&limit=10`);
+            const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastfmUsername}&api_key=${lastfmAPIKey}&format=json&limit=20`);
             const data = await response.json();
             const lastfmArtists = data.topartists.artist.map(artist => {
                 return artist.name;
@@ -110,7 +110,7 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
         const fetchCover = async (releaseID) => {
             const response = await fetch(`http://coverartarchive.org/release/${releaseID}/front-250`, { signal });
             if (response.status === 404) {
-                const cover = 'static/no-cover.svg';
+                const cover = 'images/no-cover.svg';
                 return { cover };
             }
             else {
@@ -220,7 +220,7 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
         <section id="loading-container">
             <h2>Fetching upcoming and recently released albums...</h2>
             <p>(This could take a few minutes)</p>
-            <img id="loading-icon" src="static/loading-icon.svg" />
+            <img id="loading-icon" src="images/loading-icon.svg" />
         </section>
     )
 }

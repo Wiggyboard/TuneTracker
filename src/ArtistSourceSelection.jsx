@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react';
 export default function ArtistSourceSelection({ setUserData, setArtistSource, setLoading }) {
     const [isFlipped, setFlipped] = useState(false);
     const params = new URLSearchParams(window.location.hash.slice(1));
-    const spotifyAccessToken = params.get("access_token");
+    const spotifyAccessToken = params.get('access_token');
 
     // Authorizes Spotifty account
     const authorizeSpotify = () => {
         const clientID = import.meta.env.VITE_REACT_APP_SPOTIFY_CLIENT_ID;
-        const redirectURI = 'http://127.0.0.1:5173';
+        const redirectURI = 'http://127.0.0.1:5173/tunetracker/';
         const scope = 'user-top-read';
         const authURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&redirect_uri=${redirectURI}&scope=${scope}`;
 
@@ -37,7 +37,7 @@ export default function ArtistSourceSelection({ setUserData, setArtistSource, se
 
     // Sets artistSource as Last.fm
     const setLastfm = () => {
-        const lastfmUsername = document.getElementById("lastfm-username").value;
+        const lastfmUsername = document.getElementById('lastfm-username').value;
         setUserData({ lastfmUsername: lastfmUsername });
         setArtistSource('lastfm');
         setLoading(true);
@@ -45,19 +45,19 @@ export default function ArtistSourceSelection({ setUserData, setArtistSource, se
 
     return (
         <section id='artist-source-selection'>
-            <h2 id='welcome-user'>Welcome, Username!</h2>
-            <h2>To get started, link TuneTracker to your Spotify or Last.fm account</h2>
+            <h2 id='welcome-user'>Welcome!</h2>
+            <h2>To get started, connect TuneTracker to your Spotify or Last.fm account</h2>
 
             <div id='connect-card-container'>
                 <div className='connect-card' id='spotify-card' onClick={authorizeSpotify}>
-                    <img className='connect-icon' src='static/spotify-icon.svg' />
+                    <img className='connect-icon' src='images/spotify-icon.svg' />
                     <p>Connect to Spotify</p>
                 </div>
 
                 <div className='card-container'>
                     <div className={`card-flip ${isFlipped ? 'card-flipped' : ''}`} onClick={isFlipped ? null : flipLastFMCard}>
                         <div className='connect-card' id='lastfm-card-front'>
-                            <img className='connect-icon' src='static/lastfm-icon.svg' />
+                            <img className='connect-icon' src='images/lastfm-icon.svg' />
                             <p>Connect to Last.fm</p>
                         </div>
                         <div className='card-back'>
