@@ -1,8 +1,12 @@
 import { useEffect } from "react";
 
-export default function Header({ isLoggedIn, setIsLoggedIn }) {
-    const loginUser = () => {
-        setIsLoggedIn(true);
+export default function Header({ setCurrentPage, isLoggedIn, setIsLoggedIn }) {
+    const openSignupPage = () => {
+        setCurrentPage('Signup');
+    }
+
+    const openLoginPage = () => {
+        setCurrentPage('Login');
     }
 
     const logOutUser = () => {
@@ -19,8 +23,8 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
             <div id="header-button-wrapper">
                 {!isLoggedIn ?
                     <>
-                        <button className="header-button">Sign-up</button>
-                        <button className="header-button" id="header-login" onClick={loginUser}>Login</button>
+                        <button className="header-button" onClick={openSignupPage}>Sign-up</button>
+                        <button className="header-button" id="header-login" onClick={openLoginPage}>Login</button>
                     </>
                     :
                     <button className="header-button" id="header-logout" onClick={logOutUser}>Log out</button>

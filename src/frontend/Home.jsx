@@ -1,4 +1,7 @@
-export default function Home() {
+export default function Home({ setCurrentPage }) {
+    const openSignupPage = () => {
+        setCurrentPage('Signup');
+    }
 
     // Animates-in elements on scroll
     function checkScroll() {
@@ -27,7 +30,7 @@ export default function Home() {
                     <div id='dw-left'>
                         <h2>Easily track upcoming and recently-released albums from the artists YOU love.</h2>
                         <div id='button-wrapper'>
-                                <button id='create-button' className='diagonal-button'>Create Account</button>
+                            <button id='create-button' className='diagonal-button' onClick={openSignupPage}>Create Account</button>
                             <a href='#about'>
                                 <button id='learn-button' className='diagonal-button'>Learn More</button>
                             </a>
@@ -63,7 +66,7 @@ export default function Home() {
                 </div>
                 <div className='animate-in' id='bottom-create'>
                     <h3>Ready to get started?</h3>
-                        <button id='create-button'>Create Account</button>
+                    <button id='create-button' onClick={openSignupPage}>Create Account</button>
                 </div>
             </section>
         </main>
