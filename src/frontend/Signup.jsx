@@ -26,7 +26,7 @@ export default function Signup({ setCurrentPage, setIsLoggedIn }) {
         }
         else {
             try {
-                const response = await fetch('http://localhost:8000/users/signup', {
+                const response = await fetch('https://wiggyboard.com/tunetracker/users/signup', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
