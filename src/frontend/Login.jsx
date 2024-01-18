@@ -3,7 +3,7 @@ export default function Login({ setCurrentPage, setIsLoggedIn }) {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        const response = await fetch('https://wiggyboard.com/tunetracker/users/login', {
+        const response = await fetch('https://api.wiggyboard.com:3000/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
