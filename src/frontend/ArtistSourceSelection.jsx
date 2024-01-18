@@ -8,7 +8,7 @@ export default function ArtistSourceSelection({ setUserData, setArtistSource, se
     // Authorizes Spotifty account
     const authorizeSpotify = () => {
         const clientID = import.meta.env.VITE_REACT_APP_SPOTIFY_CLIENT_ID;
-        const redirectURI = 'http://127.0.0.1:5173/tunetracker/';
+        const redirectURI = 'https://wiggyboard.com/tunetracker/';
         const scope = 'user-top-read';
         const authURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&redirect_uri=${redirectURI}&scope=${scope}`;
 
