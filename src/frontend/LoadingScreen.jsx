@@ -145,7 +145,7 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
             const artistIDs = [];
             for (const artist of artists) {
                 artistIDs.push(await fetchArtistID(artist));
-                await delay(1000);
+                await delay(1500);
             }
 
             setReleases(prevReleases => {
@@ -159,7 +159,7 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
             const releaseGroupData = [];
             for (const artistID of artistIDs) {
                 releaseGroupData.push(await fetchReleaseGroupData(artistID.artistID));
-                await delay(1000);
+                await delay(1500);
             }
 
             setReleases(prevReleases => {
@@ -173,7 +173,7 @@ export default function LoadingScreen({ userData, artistSource, setReleases, set
             const releaseIDs = [];
             for (const releaseGroupID of releaseGroupData) {
                 releaseIDs.push(await fetchReleaseID(releaseGroupID.releaseGroupID));
-                await delay(1000);
+                await delay(1500);
             }
 
             setReleases(prevReleases => {

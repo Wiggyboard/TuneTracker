@@ -13,7 +13,7 @@ export default function Login({ setCurrentPage, setIsLoggedIn }) {
 
         if (response.ok) {
             const result = await response.json();
-            console.log(result);
+            console.log(result.status);
             localStorage.setItem('token', result.token);
             localStorage.setItem('userEmail', email);
             setIsLoggedIn(true);
